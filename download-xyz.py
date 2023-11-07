@@ -6,10 +6,12 @@ import os
 import urllib.request
 from pathlib import Path
 
+
 def main(args):
     z, x, y = map(int, args.tile.split("/"))
     logging.info(f"Downloading children of {z}/{x}/{y} to zoom {args.zoom}")
     downloadChildren(z, x, y, args.url, args.destination, args.zoom, args.force)
+
 
 def downloadChildren(z, x, y, url, destination, maxZoom, force=False):
     downloadTile(z, x, y, url, destination, force)
@@ -18,6 +20,7 @@ def downloadChildren(z, x, y, url, destination, maxZoom, force=False):
         downloadChildren(z + 1, x * 2 + 1, y * 2, url, destination, maxZoom, force)
         downloadChildren(z + 1, x * 2, y * 2 + 1, url, destination, maxZoom, force)
         downloadChildren(z + 1, x * 2 + 1, y * 2 + 1, url, destination, maxZoom, force)
+
 
 def downloadTile(z, x, y, url, destination, force=False):
     tile = Path(destination) / str(z) / str(x)
@@ -28,6 +31,7 @@ def downloadTile(z, x, y, url, destination, force=False):
         return
     logging.info(f"Downloading {tile}")
     urllib.request.urlretrieve(url.format(z=z, x=x, y=y), tile)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
