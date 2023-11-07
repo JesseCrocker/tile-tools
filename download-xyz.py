@@ -13,7 +13,7 @@ def main(args):
 
 def downloadChildren(z, x, y, url, destination, maxZoom, force=False):
     downloadTile(z, x, y, url, destination, force)
-    if z <= maxZoom:
+    if z < maxZoom:
         downloadChildren(z + 1, x * 2, y * 2, url, destination, maxZoom, force)
         downloadChildren(z + 1, x * 2 + 1, y * 2, url, destination, maxZoom, force)
         downloadChildren(z + 1, x * 2, y * 2 + 1, url, destination, maxZoom, force)
